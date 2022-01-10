@@ -24,13 +24,13 @@ public class Produto {
 	private LocalDate dataCadastro = LocalDate.now();
 
 	@ManyToOne
-	private Categoria id_categoria;
+	private Categoria categoria;
 
-	public Produto(String nome, String descricao, BigDecimal preco, Categoria id_categoria) {
+	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.id_categoria = id_categoria;
+		this.categoria = categoria;
 	}
 
 	public Produto() {
@@ -69,23 +69,23 @@ public class Produto {
 	}
 
 	public Categoria getCategoria() {
-		return id_categoria;
+		return categoria;
 	}
 
-	public void setCategoria(Categoria id_categoria) {
-		this.id_categoria = id_categoria;
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
 	}
 
 	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco
-				+ ", dataCadastro=" + dataCadastro + ", Categoria id:" + id_categoria.getId() + ", Categoria nome:"
-				+ id_categoria.getNome() + " ]";
+				+ ", dataCadastro=" + dataCadastro + ", Categoria id:" + categoria.getId() + ", Categoria nome:"
+				+ categoria.getNome() + " ]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id_categoria, dataCadastro, descricao, id, nome, preco);
+		return Objects.hash(categoria, dataCadastro, descricao, id, nome, preco);
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class Produto {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		return id_categoria == other.id_categoria && Objects.equals(dataCadastro, other.dataCadastro)
+		return categoria == other.categoria && Objects.equals(dataCadastro, other.dataCadastro)
 				&& Objects.equals(descricao, other.descricao) && Objects.equals(id, other.id)
 				&& Objects.equals(nome, other.nome) && Objects.equals(preco, other.preco);
 	}
