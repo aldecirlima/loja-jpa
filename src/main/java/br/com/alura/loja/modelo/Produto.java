@@ -2,13 +2,13 @@ package br.com.alura.loja.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,15 +22,15 @@ public class Produto {
 	private String descricao;
 	private BigDecimal preco;
 	private LocalDate dataCadastro = LocalDate.now();
-	
-	@Enumerated(EnumType.STRING)
-	private Categoria categoria;
 
-	public Produto(String nome, String descricao, BigDecimal preco, Categoria categoria) {
+	@ManyToOne
+	private Categoria id_categoria;
+
+	public Produto(String nome, String descricao, BigDecimal preco, Categoria id_categoria) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
-		this.categoria = categoria;
+		this.id_categoria = id_categoria;
 	}
 
 	public Produto() {
@@ -38,10 +38,6 @@ public class Produto {
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -73,11 +69,36 @@ public class Produto {
 	}
 
 	public Categoria getCategoria() {
-		return categoria;
+		return id_categoria;
 	}
 
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+	public void setCategoria(Categoria id_categoria) {
+		this.id_categoria = id_categoria;
 	}
 
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", preco=" + preco
+				+ ", dataCadastro=" + dataCadastro + ", Categoria id:" + id_categoria.getId() + ", Categoria nome:"
+				+ id_categoria.getNome() + " ]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id_categoria, dataCadastro, descricao, id, nome, preco);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		return id_categoria == other.id_categoria && Objects.equals(dataCadastro, other.dataCadastro)
+				&& Objects.equals(descricao, other.descricao) && Objects.equals(id, other.id)
+				&& Objects.equals(nome, other.nome) && Objects.equals(preco, other.preco);
+	}
 }
