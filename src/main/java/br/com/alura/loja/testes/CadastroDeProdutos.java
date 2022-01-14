@@ -1,9 +1,11 @@
 package br.com.alura.loja.testes;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import br.com.alura.loja.criteria.ConsultasCriteria;
 import br.com.alura.loja.dao.CategoriaDao;
 import br.com.alura.loja.dao.ProdutoDao;
 import br.com.alura.loja.modelo.Categoria;
@@ -22,8 +24,9 @@ public class CadastroDeProdutos {
 		Produto p = produtoDao.buscarPorId(1L);
 		System.out.println(p.getPreco());
 		
-//		List<Produto> todos = produtoDao.buscarPorCategoria("informatica");
-//		todos.forEach(prod -> System.out.println(p.getNome()));
+		List<Produto> todos = produtoDao.buscarPorCategoria("informatica");
+		System.out.println("Busca por categoria");
+		todos.forEach(prod -> System.out.println(p.getNome()));
 		
 		BigDecimal precoDoProduto = produtoDao.buscarPrecoComNome("Xiaomi Redmi");
 		System.out.println("Preço do produto: " + precoDoProduto);
@@ -86,7 +89,7 @@ public class CadastroDeProdutos {
 		
 //		produtoDao.remover(celular);
 		
-//		ConsultasCriteria.primeirasConsultas(em);
+		ConsultasCriteria.fazendoProjecoes(em);
 //		ConsultasCriteria.escolhendoRetorno(em);
 		
 		
